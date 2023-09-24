@@ -25,6 +25,8 @@ function salvar() {
   // Armazene os dados atualizados no localStorage
   localStorage.setItem("meusDados", dadosJSON);
 
+  carregarDadosSalvos();
+
   console.log("Dados salvos no localStorage:", dados);
 }
 
@@ -51,7 +53,10 @@ function carregarDadosSalvos() {
       <h2>${dados.nome}</h2>
       <a href="${dados.url}" target="_blank">Link do site</a>
       <p>Capítulo: ${dados.capitulo}</p>
-      <button onclick="editarDados(${index})">Editar</button>
+      <div class="buttons"> 
+      <button class="btnExcluir" onclick="ExcluirDados(${index})">Excluir</button>
+      <button class="btnEditar" onclick="editarDados(${index})">Editar</button>
+      </div>
     `;
       cardContainer.appendChild(card);
     });
@@ -91,6 +96,16 @@ function editarDados(index) {
         // Oculte o formulário de edição
         document.querySelector(".edit-form").style.display = "none";
       };
+    }
+  }
+
+  function ExcluirDados(index){
+    const dadosJSON = localStorage.getItem("meusDados");
+    if (dadosJSON) {
+      const dadosArray = JSON.parse(dadosJSON);
+      dadosArray.splice(index, 1);
+      localStorage.setItem("meusDados", JSON.stringify(dadosArray));
+      carregarDadosSalvos();
     }
   }
   
