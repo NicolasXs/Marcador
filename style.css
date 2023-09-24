@@ -59,6 +59,10 @@ button {
   text-align: center;
 }
 
+.edit-form {
+  text-align: center;
+}
+
 .card {
   border: 2px solid #00bd3f;
   border-radius: 5px;
@@ -82,7 +86,6 @@ button {
   margin: 2em;
   flex-wrap: wrap;
   justify-content: center;
-
 }
 
 .btnEditar {
@@ -93,25 +96,24 @@ button {
   background-color: rgba(255, 0, 0, 0.867);
 }
 
-
 /* ===== Scrollbar CSS ===== */
-  /* Firefox */
-  * {
-    scrollbar-width: none;
-    scrollbar-color: #00bd3f #000000;
-  }
+/* Firefox */
+* {
+  scrollbar-width: none;
+  scrollbar-color: #00bd3f #000000;
+}
 
-  /* Chrome, Edge, and Safari */
-  *::-webkit-scrollbar {
-    width: 14px;
-  }
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 14px;
+}
 
-  *::-webkit-scrollbar-track {
-    background: #000000;
-  }
+*::-webkit-scrollbar-track {
+  background: #000000;
+}
 
-  *::-webkit-scrollbar-thumb {
-    background-color: #00bd3f;
-    border-radius: 10px;
-    border: 3px none #000000;
-  }
+*::-webkit-scrollbar-thumb {
+  background-color: #00bd3f;
+  border-radius: 10px;
+  border: 3px none #000000;
+}
