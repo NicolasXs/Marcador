@@ -81,6 +81,8 @@ button {
   display: flex;
   margin: 2em;
   flex-wrap: wrap;
+  justify-content: center;
+
 }
 
 .btnEditar {
