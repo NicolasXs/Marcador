@@ -55,7 +55,7 @@ function carregarDadosSalvos() {
       <p>Capítulo: ${dados.capitulo}</p>
       <div class="buttons"> 
       <button class="btnExcluir" onclick="ExcluirDados(${index})">Excluir</button>
-      <button class="btnEditar" onclick="editarDados(${index})">Editar</button>
+      <button id="btnEditar" class="btnEditar" onclick="editarDados(${index})">Editar</button>
       </div>
     `;
       cardContainer.appendChild(card);
@@ -64,51 +64,53 @@ function carregarDadosSalvos() {
 }
 
 function editarDados(index) {
-    const dadosJSON = localStorage.getItem("meusDados");
-    if (dadosJSON) {
-      const dadosArray = JSON.parse(dadosJSON);
-      const dados = dadosArray[index];
-  
-      // Preencha o formulário de edição com os dados atuais
-      document.getElementById("edit_url").value = dados.url;
-      document.getElementById("edit_url_image").value = dados.url_image;
-      document.getElementById("edit_capitulo").value = dados.capitulo;
-      document.getElementById("edit_nome").value = dados.nome;
-  
-      // Mostre o formulário de edição
-      document.querySelector(".edit-form").style.display = "block";
-  
-      // Crie uma função para salvar as edições
-      document.getElementById("edit_button").onclick = function () {
-        // Atualize os dados no array
-        dados.url = document.getElementById("edit_url").value;
-        dados.url_image = document.getElementById("edit_url_image").value;
-        dados.capitulo = document.getElementById("edit_capitulo").value;
-        dados.nome = document.getElementById("edit_nome").value;
-  
-        // Atualize os dados no localStorage
-        dadosArray[index] = dados;
-        localStorage.setItem("meusDados", JSON.stringify(dadosArray));
-  
-        // Atualize a exibição na página
-        carregarDadosSalvos();
-  
-        // Oculte o formulário de edição
-        document.querySelector(".edit-form").style.display = "none";
-      };
-    }
-  }
+  const dadosJSON = localStorage.getItem("meusDados");
+  if (dadosJSON) {
+    const dadosArray = JSON.parse(dadosJSON);
+    const dados = dadosArray[index];
 
-  function ExcluirDados(index){
-    const dadosJSON = localStorage.getItem("meusDados");
-    if (dadosJSON) {
-      const dadosArray = JSON.parse(dadosJSON);
-      dadosArray.splice(index, 1);
+    // Rola a página para o topo
+    window.scrollTo(0, 0);
+
+    // Preencha o formulário de edição com os dados atuais
+    document.getElementById("edit_url").value = dados.url;
+    document.getElementById("edit_url_image").value = dados.url_image;
+    document.getElementById("edit_capitulo").value = dados.capitulo;
+    document.getElementById("edit_nome").value = dados.nome;
+
+    // Mostre o formulário de edição
+    document.querySelector(".edit-form").style.display = "block";
+
+    // Crie uma função para salvar as edições
+    document.getElementById("edit_button").onclick = function () {
+      // Atualize os dados no array
+      dados.url = document.getElementById("edit_url").value;
+      dados.url_image = document.getElementById("edit_url_image").value;
+      dados.capitulo = document.getElementById("edit_capitulo").value;
+      dados.nome = document.getElementById("edit_nome").value;
+
+      // Atualize os dados no localStorage
+      dadosArray[index] = dados;
       localStorage.setItem("meusDados", JSON.stringify(dadosArray));
+
+      // Atualize a exibição na página
       carregarDadosSalvos();
-    }
+
+      // Oculte o formulário de edição
+      document.querySelector(".edit-form").style.display = "none";
+    };
   }
-  
+}
+
+function ExcluirDados(index) {
+  const dadosJSON = localStorage.getItem("meusDados");
+  if (dadosJSON) {
+    const dadosArray = JSON.parse(dadosJSON);
+    dadosArray.splice(index, 1);
+    localStorage.setItem("meusDados", JSON.stringify(dadosArray));
+    carregarDadosSalvos();
+  }
+}
 
 // Chame a função para carregar os dados quando a página for carregada
 document.addEventListener("DOMContentLoaded", carregarDadosSalvos);
