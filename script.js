@@ -102,15 +102,21 @@ function editarDados(index) {
   }
 }
 
+// Função para excluir dados com confirmação
 function ExcluirDados(index) {
   const dadosJSON = localStorage.getItem("meusDados");
   if (dadosJSON) {
     const dadosArray = JSON.parse(dadosJSON);
-    dadosArray.splice(index, 1);
-    localStorage.setItem("meusDados", JSON.stringify(dadosArray));
-    carregarDadosSalvos();
+
+    // Pergunta ao usuário se deseja realmente excluir
+    const confirmacao = window.confirm("Deseja realmente excluir este item?");
+
+    if (confirmacao) {
+      dadosArray.splice(index, 1);
+      localStorage.setItem("meusDados", JSON.stringify(dadosArray));
+      carregarDadosSalvos();
+    }
   }
 }
-
 // Chame a função para carregar os dados quando a página for carregada
 document.addEventListener("DOMContentLoaded", carregarDadosSalvos);
