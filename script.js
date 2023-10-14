@@ -27,6 +27,11 @@ function salvar() {
 
   carregarDadosSalvos();
 
+  document.getElementById("url").value = "";
+  document.getElementById("url_image").value = "";
+  document.getElementById("capitulo").value = "";
+  document.getElementById("nome").value = "";
+
   console.log("Dados salvos no localStorage:", dados);
 }
 
@@ -107,15 +112,23 @@ function ExcluirDados(index) {
   const dadosJSON = localStorage.getItem("meusDados");
   if (dadosJSON) {
     const dadosArray = JSON.parse(dadosJSON);
-
     // Pergunta ao usuário se deseja realmente excluir
-    const confirmacao = window.confirm("Deseja realmente excluir este item?");
-
-    if (confirmacao) {
-      dadosArray.splice(index, 1);
-      localStorage.setItem("meusDados", JSON.stringify(dadosArray));
-      carregarDadosSalvos();
-    }
+    Swal.fire({
+      title: "Excluir item?",
+      text: "Deseja realmente excluir este item?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#00bd3f",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Sim",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dadosArray.splice(index, 1);
+        localStorage.setItem("meusDados", JSON.stringify(dadosArray));
+        carregarDadosSalvos();
+        Swal.fire("Excluído!", "Seu item foi excluído.", "success");
+      }
+    });
   }
 }
 // Chame a função para carregar os dados quando a página for carregada
